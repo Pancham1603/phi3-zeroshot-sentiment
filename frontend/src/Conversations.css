@@ -1,0 +1,49 @@
+.conversations-container {
+  width: 20%;
+  padding: 10px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the button horizontally */
+  background: url('C:/Users/91999/Downloads/background.jpg') center center/cover no-repeat; /* Cover the entire container */
+  background-size: cover; /* Ensure the background image covers the container */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+}
+
+.New-Conversation-button {
+  padding: 15px 30px; 
+  border: 2px solid #964D00; 
+  background-color: #964D00;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 2px;
+  margin-bottom: 10px;
+}
+
+.New-Conversation-button:hover {
+  background-color: #782F00; /* Darker brown on hover */
+}
+
+.conversations-list {
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.conversation-item {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-item.active {
+  border: 2px solid #964D00; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+}
+
+.conversation-item:hover {
+  background-color: #964D00;
+}
