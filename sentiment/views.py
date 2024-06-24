@@ -13,6 +13,9 @@ from rest_framework import viewsets
 from .serializers import *
 from .models import *
 
+from .sentiment import get_reply
+from django.utils import timezone
+
 # Create your views here.
 
 class ChatViewSet(viewsets.ModelViewSet):
@@ -134,3 +137,28 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('/login')
+
+
+def process_reply(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        
+        if data.get('chat_instance_id'):
+            chat_instance = ChatInstance.objects.get(id=data['chat_instance_id'])
+        elif request.session.get('chat_instance_id'):
+            chat_instance = ChatInstance.objects.get(id=request.session['chat_instance_id'])
+        else:
+            chat_instance = ChatInstance.objects.create(user=user)
+            chat_instance.save()
+        
+        message = data['message']
+        user = request.user
+        response = get_reply(message)
+        reply = response['reply']
+        sentiment = response['sentiment']
+
+        chat = Chat.objects.create(message=message, user=user, chat_instance=chat_instance, reply=reply, sentiment=sentiment, timestamp=timezone.now())
+        chat.save()
+        return JsonResponse({'message': 'Message received successfully!', 'reply': reply}, status=200)
+    else:
+        return JsonResponse({'message': 'Invalid request method!'}, status=400)

@@ -15,4 +15,5 @@ urlpatterns = [
    path('login/', login_user),
    path('logout/', logout_user),
    path('accounts/google/login/callback/', oauth_callback),
+   path('chat/', process_reply),
    ]
